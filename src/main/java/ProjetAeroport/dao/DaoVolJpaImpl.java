@@ -6,8 +6,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
+import ProjetAeroport.model.Aeroport;
+import ProjetAeroport.model.CompagnieAerienne;
 import ProjetAeroport.model.CompagnieAerienneVol;
 import ProjetAeroport.model.Escale;
+import ProjetAeroport.model.Reservation;
 import ProjetAeroport.model.Vol;
 import ProjetAeroport.util.Context;
 
@@ -124,6 +127,66 @@ class DaoVolJpaImpl implements DaoVol {
 		Vols = query.getResultList();
 		em.close();
 		return Vols;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Aeroport> findAllAeroportDepart() {
+		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
+		Query query = em.createNamedQuery("Vol.findAllAeroportDepart");
+		List<Aeroport> aeroportsDepart = query.getResultList();
+		em.close();
+		return aeroportsDepart;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Aeroport> findAllAeroportArrivee() {
+		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
+		Query query = em.createNamedQuery("Vol.findAllAeroportArrivee");
+		List<Aeroport> aeroportsArrivee = query.getResultList();
+		em.close();
+		return aeroportsArrivee;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Escale> findAllEscale() {
+		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
+		Query query = em.createNamedQuery("Vol.findAllEscale");
+		List<Escale> escale = query.getResultList();
+		em.close();
+		return escale;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Reservation> findAllReservation() {
+		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
+		Query query = em.createNamedQuery("Vol.findAllReservation");
+		List<Reservation> resa = query.getResultList();
+		em.close();
+		return resa;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<CompagnieAerienneVol> findAllCompagnieAerienneVol() {
+		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
+		Query query = em.createNamedQuery("Vol.findAllCompagnieAerienneVol");
+		List<CompagnieAerienneVol> cav = query.getResultList();
+		em.close();
+		return cav;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<CompagnieAerienne> findAllCompagnieAerienne() {
+		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
+		Query query = em.createNamedQuery("Vol.findAllCompagnieAerienne");
+		List<CompagnieAerienne> ca = query.getResultList();
+		em.close();
+		return ca;
 	}
 
 }

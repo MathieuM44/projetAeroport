@@ -7,7 +7,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
 import ProjetAeroport.model.Passager;
-
+import ProjetAeroport.model.Reservation;
 import ProjetAeroport.util.*;
 
 class DaoPassagerJpaImpl implements DaoPassager {
@@ -74,8 +74,11 @@ class DaoPassagerJpaImpl implements DaoPassager {
 			tx = em.getTransaction();
 			tx.begin();
 			obj = em.merge(obj);
-			obj.setReservation(null);
-				
+			if (obj.getReservations() != null) {
+				for (Reservation p : obj.getReservations()) {
+					p.setPassager(null);
+				}
+			}
 			em.remove(em.merge(obj));
 			tx.commit();
 		} catch (Exception e) {
@@ -88,7 +91,6 @@ class DaoPassagerJpaImpl implements DaoPassager {
 				em.close();
 			}
 		}
-
 	}
 
 	@Override
@@ -98,9 +100,12 @@ class DaoPassagerJpaImpl implements DaoPassager {
 		try {
 			tx = em.getTransaction();
 			tx.begin();
-			
 			Passager obj = em.find(Passager.class, key);
-			obj.setReservation(null);
+			for (Reservation p : obj.getReservations()) {
+
+				p.setPassager(null);
+
+			}
 			em.remove(em.find(Passager.class, key));
 			tx.commit();
 		} catch (Exception e) {
@@ -116,7 +121,7 @@ class DaoPassagerJpaImpl implements DaoPassager {
 
 	}
 
-	@Override
+	@SuppressWarnings("unchecked")
 	public List<Passager> findAll() {
 		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
 		Query query = em.createQuery("from Passager p");

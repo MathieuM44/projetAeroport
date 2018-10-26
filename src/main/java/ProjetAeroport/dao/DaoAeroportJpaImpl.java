@@ -1,5 +1,6 @@
 package ProjetAeroport.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -8,11 +9,14 @@ import javax.persistence.Query;
 
 import ProjetAeroport.model.Aeroport;
 import ProjetAeroport.model.Escale;
+import ProjetAeroport.model.Ville;
 import ProjetAeroport.model.VilleAeroport;
+import ProjetAeroport.model.Vol;
 import ProjetAeroport.util.Context;
 
 
 public class DaoAeroportJpaImpl implements DaoAeroport {
+	
 	@Override
 	public void create(Aeroport obj) {
 		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
@@ -122,6 +126,41 @@ public class DaoAeroportJpaImpl implements DaoAeroport {
 		Aeroports=query.getResultList();
 		em.close();
 		return Aeroports;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Escale> findAllEscale() {
+		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
+		Query query = em.createNamedQuery("Aeroport.findAllEscale");
+		List<Escale> escale = query.getResultList();
+		em.close();
+		return escale;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Vol> findAllVols() {
+		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
+		Query query1 = em.createNamedQuery("Aeroport.findAllVolDepart");
+		List<Vol> volDepart = query1.getResultList();
+		Query query2 = em.createNamedQuery("Aeroport.findAllVolArrivee");
+		List<Vol> volArrivee = query2.getResultList();
+		em.close();
+		List<Vol> vols = new ArrayList<>();
+		vols.addAll(volDepart);
+		vols.addAll(volArrivee);
+		return vols;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Ville> findAllVille() {
+		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
+		Query query = em.createNamedQuery("Aeroport.findAllVille");
+		List<Ville> villes = query.getResultList();
+		em.close();
+		return villes;
 	}
 }
 

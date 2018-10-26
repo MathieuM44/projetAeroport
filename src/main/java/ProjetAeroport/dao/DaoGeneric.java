@@ -11,8 +11,8 @@ public interface DaoGeneric<T, K> {
 	T update(T obj);
 	
 	void delete(T obj);
-	
+
 	void deleteByKey(K key);
-	
+
 	List<T> findAll();
 }

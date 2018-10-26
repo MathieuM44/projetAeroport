@@ -6,8 +6,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
-import ProjetAeroport.model.Client;
-import ProjetAeroport.model.Passager;
 import ProjetAeroport.model.Reservation;
 
 import ProjetAeroport.util.*;
@@ -33,7 +31,6 @@ class DaoReservationJpaImpl implements DaoReservation {
 				em.close();
 			}
 		}
-
 	}
 
 	@Override
@@ -68,7 +65,6 @@ class DaoReservationJpaImpl implements DaoReservation {
 		return a;
 	}
 
-	@Override
 	public void delete(Reservation obj) {
 		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
 		EntityTransaction tx = null;
@@ -76,11 +72,8 @@ class DaoReservationJpaImpl implements DaoReservation {
 			tx = em.getTransaction();
 			tx.begin();
 			obj = em.merge(obj);
-			if (obj.getPassagers() != null) {
-				for (Passager p : obj.getPassagers()) {
-					p.setReservation(null);
-				}
-			}
+			obj.setPassager(null);
+
 			em.remove(em.merge(obj));
 			tx.commit();
 		} catch (Exception e) {
@@ -93,22 +86,17 @@ class DaoReservationJpaImpl implements DaoReservation {
 				em.close();
 			}
 		}
-
 	}
 
-	@Override
 	public void deleteByKey(Long key) {
 		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
 		EntityTransaction tx = null;
 		try {
 			tx = em.getTransaction();
 			tx.begin();
+
 			Reservation obj = em.find(Reservation.class, key);
-			for (Passager p : obj.getPassagers()) {
-
-				p.setReservation(null);
-
-			}
+			obj.setPassager(null);
 			em.remove(em.find(Reservation.class, key));
 			tx.commit();
 		} catch (Exception e) {
@@ -122,8 +110,9 @@ class DaoReservationJpaImpl implements DaoReservation {
 			}
 		}
 
-	}
+	} 
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Reservation> findAll() {
 		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();

@@ -9,8 +9,6 @@ import javax.persistence.Query;
 import ProjetAeroport.model.Login;
 import ProjetAeroport.util.Context;
 
-
-
 public class DaoLoginJpaImpl implements DaoLogin {
 
 	@Override
@@ -67,7 +65,7 @@ public class DaoLoginJpaImpl implements DaoLogin {
 		return a;
 	}
 
-	@Override
+	
 	public void delete(Login obj) {
 		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
 		EntityTransaction tx = null;
@@ -92,7 +90,7 @@ public class DaoLoginJpaImpl implements DaoLogin {
 		}
 	}
 
-	@Override
+	
 	public void deleteByKey(Long Key) {
 		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
 		EntityTransaction tx = null;
@@ -127,15 +125,5 @@ public class DaoLoginJpaImpl implements DaoLogin {
 		em.close();
 		return logins;
 	}
-
-
-
-
-
-
-	
-	
-
-	
 
 }
