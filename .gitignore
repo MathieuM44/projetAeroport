@@ -1,0 +1,8 @@
+.git
+.settings
+target
+.classpath
+.project
+resources
+DaoGeneric.java
+util
