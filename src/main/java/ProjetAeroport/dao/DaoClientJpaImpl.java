@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
+
 import ProjetAeroport.model.Client;
 import ProjetAeroport.model.Reservation;
 import ProjetAeroport.util.Context;
@@ -124,6 +125,16 @@ public class DaoClientJpaImpl implements DaoClient {
 				em.close();
 			}
 		}
+	}
+	
+		@Override
+	    public List<Client> clientAvecReservation() {
+		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
+		Query query  = em.createNamedQuery("Client.clientAvecReservation");
+		List<Client> clients = query.getResultList();
+		em.close();
+		return clients;
+
 	}
 
 	@SuppressWarnings("unchecked")

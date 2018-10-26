@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
@@ -23,6 +24,7 @@ import javax.persistence.Version;
 
 @Entity
 @Table (name = "client_projet_aeroport")
+@NamedQuery(name = "Client.clientAvecReservation", query = "select c from Client c left join fetch c.reservations")
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name="statut_juridique", discriminatorType = DiscriminatorType.STRING,length = 2)
 @SequenceGenerator(name="seqClient", sequenceName="seq_client", initialValue = 1, allocationSize=1)
