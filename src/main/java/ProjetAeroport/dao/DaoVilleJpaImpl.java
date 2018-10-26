@@ -6,7 +6,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
+import ProjetAeroport.model.CompagnieAerienneVol;
 import ProjetAeroport.model.Ville;
+import ProjetAeroport.model.VilleAeroport;
 import ProjetAeroport.util.Context;
 
 
@@ -70,7 +72,10 @@ public class DaoVilleJpaImpl implements DaoVille {
 		try {
 			tx = em.getTransaction();
 			tx.begin();
-			obj=em.merge(obj);
+			obj = em.merge(obj);
+			for(VilleAeroport va: obj.getVilleAeroports()) {
+				em.remove(va);
+			}
 			em.remove(obj);
 			tx.commit();
 		} catch (Exception e) {

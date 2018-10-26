@@ -6,19 +6,19 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
-import ProjetAeroport.model.Login;
+import ProjetAeroport.model.VilleAeroport;
+import ProjetAeroport.model.VilleAeroportKey;
 import ProjetAeroport.util.Context;
 
 
 
-public class DaoLoginJpaImpl implements DaoLogin {
-
+public class DaoVilleAeroportJpaImpl implements DaoVilleAeroport {
+	
 	@Override
-	public void create(Login obj) {
+	public void create(VilleAeroport obj) {
 		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
-		EntityTransaction tx = null;
+		EntityTransaction tx = em.getTransaction();
 		try {
-			tx = em.getTransaction();
 			tx.begin();
 			em.persist(obj);
 			tx.commit();
@@ -35,24 +35,22 @@ public class DaoLoginJpaImpl implements DaoLogin {
 	}
 
 	@Override
-	public Login findByKey(Long Key) {
-
+	public VilleAeroport findByKey(VilleAeroportKey key) {
 		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
-		Login a = null;
-		a= em.find(Login.class, Key);
+		VilleAeroport f=null;
+		f=em.find(VilleAeroport.class, key);
 		em.close();
-		return a;
+		return f;
 	}
 
 	@Override
-	public Login update(Login obj) {
+	public VilleAeroport update(VilleAeroport obj) {
 		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
 		EntityTransaction tx = null;
-		Login a = null;
 		try {
 			tx = em.getTransaction();
 			tx.begin();
-			a = em.merge(obj);
+			em.merge(obj);
 			tx.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -64,21 +62,18 @@ public class DaoLoginJpaImpl implements DaoLogin {
 				em.close();
 			}
 		}
-		return a;
+		return obj;
 	}
 
 	@Override
-	public void delete(Login obj) {
+	public void delete(VilleAeroport obj) {
 		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
 		EntityTransaction tx = null;
 		try {
 			tx = em.getTransaction();
 			tx.begin();
-			obj = em.merge(obj);
-			if(obj.getClient()!=null) {
-				obj.getClient().setLogin(null);;
-			}
-			em.remove(em.merge(obj));
+			obj=em.merge(obj);
+			em.remove(obj);
 			tx.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -93,17 +88,13 @@ public class DaoLoginJpaImpl implements DaoLogin {
 	}
 
 	@Override
-	public void deleteByKey(Long Key) {
+	public void deleteByKey(VilleAeroportKey key) {
 		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
 		EntityTransaction tx = null;
 		try {
 			tx = em.getTransaction();
 			tx.begin();
-			Login obj = em.find(Login.class,Key);
-			if(obj.getClient()!=null) {
-				obj.getClient().setLogin(null);
-			}
-			em.remove(em.find(Login.class, Key));
+			em.remove(em.find(VilleAeroport.class, key));
 			tx.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -119,23 +110,13 @@ public class DaoLoginJpaImpl implements DaoLogin {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Login> findAll() {
-		List<Login> logins = null;
+	public List<VilleAeroport> findAll() {
 		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
-		Query query = em.createQuery("from login_projet_aeroport");
-		logins = query.getResultList();
+		Query query = em.createQuery("from VilleAeroport f"); 
+		List<VilleAeroport> VilleAeroports=null;
+		VilleAeroports=query.getResultList();
 		em.close();
-		return logins;
+		return VilleAeroports;
 	}
-
-
-
-
-
-
-	
-	
-
-	
-
 }
+

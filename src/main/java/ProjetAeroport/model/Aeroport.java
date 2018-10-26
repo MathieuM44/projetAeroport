@@ -20,8 +20,17 @@ public class Aeroport {
 	@Column(name="nom_aeroport",length=50) 
 	private String nom;
 	
+	@OneToMany(mappedBy = "aeroportDepart")
+	private List<Vol> volsDepart;
+	
+	@OneToMany(mappedBy = "aeroportArrivee")
+	private List<Vol> volsArrivee;
+	
 	@OneToMany(mappedBy = "key.aeroport")		// erreur à ignorer si clé composée
 	private List<Escale> escale;
+	
+	@OneToMany(mappedBy = "key.aeroport")		// erreur à ignorer si clé composée
+	private List<VilleAeroport> villeAeroports;
 	
 	@Version
 	private int version;
@@ -59,6 +68,30 @@ public class Aeroport {
 
 	public void setEscale(List<Escale> escale) {
 		this.escale = escale;
+	}
+
+	public List<Vol> getVolsDepart() {
+		return volsDepart;
+	}
+
+	public void setVolsDepart(List<Vol> volsDepart) {
+		this.volsDepart = volsDepart;
+	}
+
+	public List<Vol> getVolsArrivee() {
+		return volsArrivee;
+	}
+
+	public void setVolsArrivee(List<Vol> volsArrivee) {
+		this.volsArrivee = volsArrivee;
+	}
+
+	public List<VilleAeroport> getVilleAeroports() {
+		return villeAeroports;
+	}
+
+	public void setVilleAeroports(List<VilleAeroport> villeAeroports) {
+		this.villeAeroports = villeAeroports;
 	}
 
 	@Override
