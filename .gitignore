@@ -6,3 +6,5 @@ target
 resources
 DaoGeneric.java
 util
+.DS_Store
+
