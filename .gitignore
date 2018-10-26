@@ -1,1 +1,15 @@
+<<<<<<< HEAD
 /target/
+=======
+.git
+.settings
+target
+.classpath
+.project
+resources
+DaoGeneric.java
+util
+.DS_Store
+pom.xml
+
+>>>>>>> b92c361a365e36d1dd6eab157519b989347db0d2
