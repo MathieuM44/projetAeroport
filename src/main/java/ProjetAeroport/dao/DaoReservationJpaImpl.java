@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
+import ProjetAeroport.model.Client;
 import ProjetAeroport.model.Passager;
 import ProjetAeroport.model.Reservation;
 
@@ -75,10 +76,10 @@ class DaoReservationJpaImpl implements DaoReservation {
 			tx = em.getTransaction();
 			tx.begin();
 			obj = em.merge(obj);
-			for (Passager p : obj.getPassagers()) {
-
-				p.setReservation(null);
-
+			if (obj.getPassagers() != null) {
+				for (Passager p : obj.getPassagers()) {
+					p.setReservation(null);
+				}
 			}
 			em.remove(em.merge(obj));
 			tx.commit();
