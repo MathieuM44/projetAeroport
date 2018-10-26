@@ -6,8 +6,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
+import ProjetAeroport.model.Aeroport;
 import ProjetAeroport.model.CompagnieAerienne;
 import ProjetAeroport.model.CompagnieAerienneVol;
+import ProjetAeroport.model.Vol;
 import ProjetAeroport.util.Context;
 
 class DaoCompagnieAerienneJpaImpl implements DaoCompagnieAerienne {
@@ -120,6 +122,26 @@ class DaoCompagnieAerienneJpaImpl implements DaoCompagnieAerienne {
 		CompagnieAeriennes = query.getResultList();
 		em.close();
 		return CompagnieAeriennes;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<CompagnieAerienneVol> findAllCompagnieAerienneVol() {
+		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
+		Query query = em.createNamedQuery("CA.findAllCompagnieAerienneVol");
+		List<CompagnieAerienneVol> cav = query.getResultList();
+		em.close();
+		return cav;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Vol> findAllVol() {
+		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
+		Query query = em.createNamedQuery("CA.findAllVol");
+		List<Vol> vols = query.getResultList();
+		em.close();
+		return vols;
 	}
 
 }

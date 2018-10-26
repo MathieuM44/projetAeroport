@@ -1,18 +1,31 @@
 package ProjetAeroport.model;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Version;
 
 @Entity
 @SequenceGenerator(name = "seqAeroport", sequenceName="seq_aeroport", initialValue=1, allocationSize=1)
+@NamedQueries({
+	@NamedQuery(name = "Aeroport.findAllEscale", 
+			query = "select distinct a from Aeroport a left join fetch a.escale"),
+	@NamedQuery(name = "Aeroport.findAllVolDepart", 
+			query = "select distinct a from Aeroport a left join fetch a.volsDepart"),
+	@NamedQuery(name = "Aeroport.findAllVolArrivee", 
+			query = "select distinct a from Aeroport a left join fetch a.volsArrivee"),
+	@NamedQuery(name = "Aeroport.findAllVille", 
+			query = "select distinct a from Aeroport a left join fetch a.villeAeroports va left join fetch va.key.ville")
+})
 public class Aeroport {
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seqAeroport")
@@ -24,13 +37,13 @@ public class Aeroport {
 	private List<Vol> volsDepart;
 	
 	@OneToMany(mappedBy = "aeroportArrivee")
-	private List<Vol> volsArrivee;
+	private Set<Vol> volsArrivee;
 	
 	@OneToMany(mappedBy = "key.aeroport")		// erreur à ignorer si clé composée
-	private List<Escale> escale;
+	private Set<Escale> escale;
 	
 	@OneToMany(mappedBy = "key.aeroport")		// erreur à ignorer si clé composée
-	private List<VilleAeroport> villeAeroports;
+	private Set<VilleAeroport> villeAeroports;
 	
 	@Version
 	private int version;
@@ -62,14 +75,6 @@ public class Aeroport {
 		this.version = version;
 	}
 
-	public List<Escale> getEscale() {
-		return escale;
-	}
-
-	public void setEscale(List<Escale> escale) {
-		this.escale = escale;
-	}
-
 	public List<Vol> getVolsDepart() {
 		return volsDepart;
 	}
@@ -78,19 +83,27 @@ public class Aeroport {
 		this.volsDepart = volsDepart;
 	}
 
-	public List<Vol> getVolsArrivee() {
+	public Set<Vol> getVolsArrivee() {
 		return volsArrivee;
 	}
 
-	public void setVolsArrivee(List<Vol> volsArrivee) {
+	public void setVolsArrivee(Set<Vol> volsArrivee) {
 		this.volsArrivee = volsArrivee;
 	}
 
-	public List<VilleAeroport> getVilleAeroports() {
+	public Set<Escale> getEscale() {
+		return escale;
+	}
+
+	public void setEscale(Set<Escale> escale) {
+		this.escale = escale;
+	}
+
+	public Set<VilleAeroport> getVilleAeroports() {
 		return villeAeroports;
 	}
 
-	public void setVilleAeroports(List<VilleAeroport> villeAeroports) {
+	public void setVilleAeroports(Set<VilleAeroport> villeAeroports) {
 		this.villeAeroports = villeAeroports;
 	}
 

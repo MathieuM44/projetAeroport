@@ -2,6 +2,7 @@ package ProjetAeroport.model;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -20,6 +23,20 @@ import javax.persistence.Version;
 @Entity
 @Table(name = "Vol")
 @SequenceGenerator(name = "seqVol", sequenceName = "seq_vols", initialValue = 1, allocationSize = 1)
+@NamedQueries({
+	@NamedQuery(name = "Vol.findAllAeroportDepart" , 
+			query = "select distinct v from Vol v left join fetch v.aeroportDepart"),
+	@NamedQuery(name = "Vol.findAllAeroportArrivee" , 
+			query = "select distinct v from Vol v left join fetch v.aeroportArrivee"),
+	@NamedQuery(name = "Vol.findAllEscale" , 
+			query = "select distinct v from Vol v left join fetch v.escale"),
+	@NamedQuery(name = "Vol.findAllReservation" , 
+			query = "select distinct v from Vol v left join fetch v.reservations"),
+	@NamedQuery(name = "Vol.findAllCompagnieAerienneVol" , 
+			query = "select distinct v from Vol v left join fetch v.compagnieAerienneVol"),
+	@NamedQuery(name = "Vol.findAllCompagnieAerienne", 
+	query = "select distinct v from Vol v left join fetch v.compagnieAerienneVol cav left join fetch cav.key.compagnieAerienne")
+})
 public class Vol {
 
 	@Id
@@ -52,10 +69,10 @@ public class Vol {
 	private Aeroport aeroportArrivee;
 	
 	@OneToMany(mappedBy = "key.vol")		// erreur à ignorer si clé composée
-	private List<CompagnieAerienneVol> compagnieAerienneVol;
+	private Set<CompagnieAerienneVol> compagnieAerienneVol;
 	
 	@OneToMany(mappedBy = "key.vol")		// erreur à ignorer si clé composée
-	private List<Escale> escale;
+	private Set<Escale> escale;
 	
 	@OneToMany(mappedBy = "vol")
 	private List<Reservation> reservations;
@@ -114,19 +131,19 @@ public class Vol {
 		this.version = version;
 	}
 
-	public List<CompagnieAerienneVol> getCompagnieAerienneVol() {
+	public Set<CompagnieAerienneVol> getCompagnieAerienneVol() {
 		return compagnieAerienneVol;
 	}
 
-	public void setCompagnieAerienneVol(List<CompagnieAerienneVol> compagnieAerienneVol) {
+	public void setCompagnieAerienneVol(Set<CompagnieAerienneVol> compagnieAerienneVol) {
 		this.compagnieAerienneVol = compagnieAerienneVol;
 	}
 
-	public List<Escale> getEscale() {
+	public Set<Escale> getEscale() {
 		return escale;
 	}
 
-	public void setEscale(List<Escale> escale) {
+	public void setEscale(Set<Escale> escale) {
 		this.escale = escale;
 	}
 
