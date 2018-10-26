@@ -7,7 +7,9 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
 import ProjetAeroport.model.Aeroport;
+import ProjetAeroport.model.CompagnieAerienneVol;
 import ProjetAeroport.model.Escale;
+import ProjetAeroport.model.VilleAeroport;
 import ProjetAeroport.util.Context;
 
 
@@ -73,6 +75,9 @@ public class DaoAeroportJpaImpl implements DaoAeroport {
 			obj=em.merge(obj);		
 			for(Escale e : obj.getEscale()) {
 				em.remove(e);
+			}
+			for(VilleAeroport va: obj.getVilleAeroports()) {
+				em.remove(va);
 			}
 			em.remove(obj);
 			tx.commit();

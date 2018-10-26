@@ -1,10 +1,13 @@
 package ProjetAeroport.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Version;
 
@@ -21,6 +24,9 @@ public class Ville {
 	@Version
 	private int version;
 
+	@OneToMany(mappedBy = "key.ville")		// erreur à ignorer si clé composée
+	private List<VilleAeroport> villeAeroports;
+	
 	public Ville() {
 	}
 
@@ -46,6 +52,14 @@ public class Ville {
 
 	public void setVersion(int version) {
 		this.version = version;
+	}
+
+	public List<VilleAeroport> getVilleAeroports() {
+		return villeAeroports;
+	}
+
+	public void setVilleAeroports(List<VilleAeroport> villeAeroports) {
+		this.villeAeroports = villeAeroports;
 	}
 
 	@Override

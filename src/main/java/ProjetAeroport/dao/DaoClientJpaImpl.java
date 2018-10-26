@@ -118,6 +118,7 @@ public class DaoClientJpaImpl implements DaoClient {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Client> findAll() {
 		List<Client> Clients = null;
