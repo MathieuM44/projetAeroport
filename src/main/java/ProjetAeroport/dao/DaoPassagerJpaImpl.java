@@ -7,7 +7,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
 import ProjetAeroport.model.Passager;
-
+import ProjetAeroport.model.Reservation;
 import ProjetAeroport.util.*;
 
 class DaoPassagerJpaImpl implements DaoPassager {
@@ -66,57 +66,112 @@ class DaoPassagerJpaImpl implements DaoPassager {
 		return a;
 	}
 
-	@Override
-	public void delete(Passager obj) {
-		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
-		EntityTransaction tx = null;
-		try {
-			tx = em.getTransaction();
-			tx.begin();
-			obj = em.merge(obj);
-			obj.setReservation(null);
-				
-			em.remove(em.merge(obj));
-			tx.commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			if (tx != null && tx.isActive()) {
-				tx.rollback();
+	
+//	public void delete(Passager obj) {
+//		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
+//		EntityTransaction tx = null;
+//		try {
+//			tx = em.getTransaction();
+//			tx.begin();
+//			obj = em.merge(obj);
+//			obj.setReservation(null);
+//				
+//			em.remove(em.merge(obj));
+//			tx.commit();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			if (tx != null && tx.isActive()) {
+//				tx.rollback();
+//			}
+//		} finally {
+//			if (em != null && em.isOpen()) {
+//				em.close();
+//			}
+//		}//base passager 
+		
+		@Override
+		public void delete(Passager obj) {
+			EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
+			EntityTransaction tx = null;
+			try {
+				tx = em.getTransaction();
+				tx.begin();
+				obj = em.merge(obj);
+				if (obj.getReservations() != null) {
+					for (Reservation p : obj.getReservations()) {
+						p.setPassager(null);
+					}
+				}
+				em.remove(em.merge(obj));
+				tx.commit();
+			} catch (Exception e) {
+				e.printStackTrace();
+				if (tx != null && tx.isActive()) {
+					tx.rollback();
+				}
+			} finally {
+				if (em != null && em.isOpen()) {
+					em.close();
+				}
 			}
-		} finally {
-			if (em != null && em.isOpen()) {
-				em.close();
+	
+		}//reservation base //ok importé
+		
+
+	
+		@Override
+		public void deleteByKey(Long key) {
+			EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
+			EntityTransaction tx = null;
+			try {
+				tx = em.getTransaction();
+				tx.begin();
+				Passager obj = em.find(Passager.class, key);
+				for (Reservation p : obj.getReservations()) {
+	
+					p.setPassager(null);
+	
+				}
+				em.remove(em.find(Passager.class, key));
+				tx.commit();
+			} catch (Exception e) {
+				e.printStackTrace();
+				if (tx != null && tx.isActive()) {
+					tx.rollback();
+				}
+			} finally {
+				if (em != null && em.isOpen()) {
+					em.close();
+				}
 			}
-		}
+	
+		}//reservation base	//ok importé
 
-	}
+//	public void deleteByKey(Long key) {
+//		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
+//		EntityTransaction tx = null;
+//		try {
+//			tx = em.getTransaction();
+//			tx.begin();
+//			
+//			Passager obj = em.find(Passager.class, key);
+//			obj.setReservation(null);
+//			em.remove(em.find(Passager.class, key));
+//			tx.commit();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			if (tx != null && tx.isActive()) {
+//				tx.rollback();
+//			}
+//		} finally {
+//			if (em != null && em.isOpen()) {
+//				em.close();
+//			}
+//		}
+//
+//	} //base passager
 
-	@Override
-	public void deleteByKey(Long key) {
-		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
-		EntityTransaction tx = null;
-		try {
-			tx = em.getTransaction();
-			tx.begin();
-			
-			Passager obj = em.find(Passager.class, key);
-			obj.setReservation(null);
-			em.remove(em.find(Passager.class, key));
-			tx.commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			if (tx != null && tx.isActive()) {
-				tx.rollback();
-			}
-		} finally {
-			if (em != null && em.isOpen()) {
-				em.close();
-			}
-		}
-
-	}
-
-	@Override
+	
 	public List<Passager> findAll() {
 		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
 		Query query = em.createQuery("from Passager p");

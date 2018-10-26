@@ -1,14 +1,21 @@
 package ProjetAeroport.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
+import javax.persistence.Embedded;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -34,11 +41,19 @@ public abstract class Client {
 	private Integer numeroFax;
 	@Column(name = "email_client", length = 100)
 	private String email;
+	@Embedded
+	private Adresse adresse;
+
+	
+	//joindre adresse
 	
 	//association
 	
 	@OneToOne
 	private Login login;
+	
+	@OneToMany(mappedBy = "client")
+	private List<Reservation> reservations = new ArrayList<>();
 	
 	//version
 	@Version
@@ -106,6 +121,24 @@ public abstract class Client {
 
 	public void setLogin(Login login) {
 		this.login = login;
+	}
+	
+
+	public Adresse getAdresse() {
+		return adresse;
+	}
+
+	public void setAdresse(Adresse adresse) {
+		this.adresse = adresse;
+	}
+	
+
+	public List<Reservation> getReservations() {
+		return reservations;
+	}
+
+	public void setReservations(List<Reservation> reservations) {
+		this.reservations = reservations;
 	}
 
 	@Override

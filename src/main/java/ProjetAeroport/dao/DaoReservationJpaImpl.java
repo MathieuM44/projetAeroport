@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
+import ProjetAeroport.model.Client;
 import ProjetAeroport.model.Passager;
 import ProjetAeroport.model.Reservation;
 
@@ -66,62 +67,109 @@ class DaoReservationJpaImpl implements DaoReservation {
 		}
 		return a;
 	}
-
-	@Override
+	
 	public void delete(Reservation obj) {
-		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
-		EntityTransaction tx = null;
-		try {
-			tx = em.getTransaction();
-			tx.begin();
-			obj = em.merge(obj);
-			for (Passager p : obj.getPassagers()) {
-
-				p.setReservation(null);
-
-			}
-			em.remove(em.merge(obj));
-			tx.commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			if (tx != null && tx.isActive()) {
-				tx.rollback();
-			}
-		} finally {
-			if (em != null && em.isOpen()) {
-				em.close();
-			}
+	EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
+	EntityTransaction tx = null;
+	try {
+		tx = em.getTransaction();
+		tx.begin();
+		obj = em.merge(obj);
+		obj.setPassager(null);
+			
+		em.remove(em.merge(obj));
+		tx.commit();
+	} catch (Exception e) {
+		e.printStackTrace();
+		if (tx != null && tx.isActive()) {
+			tx.rollback();
 		}
-
+	} finally {
+		if (em != null && em.isOpen()) {
+			em.close();
+		}
 	}
+	}//base passager 
 
-	@Override
+//	@Override
+//	public void delete(Reservation obj) {
+//		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
+//		EntityTransaction tx = null;
+//		try {
+//			tx = em.getTransaction();
+//			tx.begin();
+//			obj = em.merge(obj);
+//			if (obj.getPassagers() != null) {
+//				for (Passager p : obj.getPassagers()) {
+//					p.setReservation(null);
+//				}
+//			}
+//			em.remove(em.merge(obj));
+//			tx.commit();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			if (tx != null && tx.isActive()) {
+//				tx.rollback();
+//			}
+//		} finally {
+//			if (em != null && em.isOpen()) {
+//				em.close();
+//			}
+//		}
+//
+//	}//reservation base
+
+//	@Override
+//	public void deleteByKey(Long key) {
+//		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
+//		EntityTransaction tx = null;
+//		try {
+//			tx = em.getTransaction();
+//			tx.begin();
+//			Reservation obj = em.find(Reservation.class, key);
+//			for (Passager p : obj.getPassagers()) {
+//
+//				p.setReservation(null);
+//
+//			}
+//			em.remove(em.find(Reservation.class, key));
+//			tx.commit();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			if (tx != null && tx.isActive()) {
+//				tx.rollback();
+//			}
+//		} finally {
+//			if (em != null && em.isOpen()) {
+//				em.close();
+//			}
+//		}
+//
+//	}//reservation base
+	
 	public void deleteByKey(Long key) {
-		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
-		EntityTransaction tx = null;
-		try {
-			tx = em.getTransaction();
-			tx.begin();
-			Reservation obj = em.find(Reservation.class, key);
-			for (Passager p : obj.getPassagers()) {
-
-				p.setReservation(null);
-
-			}
-			em.remove(em.find(Reservation.class, key));
-			tx.commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			if (tx != null && tx.isActive()) {
-				tx.rollback();
-			}
-		} finally {
-			if (em != null && em.isOpen()) {
-				em.close();
-			}
+	EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
+	EntityTransaction tx = null;
+	try {
+		tx = em.getTransaction();
+		tx.begin();
+		
+		Reservation obj = em.find(Reservation.class, key);
+		obj.setPassager(null);
+		em.remove(em.find(Reservation.class, key));
+		tx.commit();
+	} catch (Exception e) {
+		e.printStackTrace();
+		if (tx != null && tx.isActive()) {
+			tx.rollback();
 		}
-
+	} finally {
+		if (em != null && em.isOpen()) {
+			em.close();
+		}
 	}
+
+} //base passager
 
 	@Override
 	public List<Reservation> findAll() {
