@@ -27,7 +27,7 @@ public class DaoPassagerTest {
 		Context.destroy();
 	}
 	
-
+	
 	@Test
 	public void create() {
 		Passager vallan;
@@ -35,7 +35,7 @@ public class DaoPassagerTest {
 		daoPassager.create(vallan);
 		assertNotNull(vallan.getId());
 	}
-	
+//	
 	@Test
 	public void findByKey() {
 		Passager vallan;
@@ -70,7 +70,7 @@ public class DaoPassagerTest {
 			assertNull(daoPassager.findByKey(vallan.getId()));
 		
 	}//ok
-//	
+////	
 	@Test
 	public void deleteByKey() {
 		

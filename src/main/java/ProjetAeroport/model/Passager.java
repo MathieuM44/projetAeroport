@@ -17,7 +17,7 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 
 @Entity
-@Table (name="passager")
+@Table (name="passager_projet_aeroport")
 @SequenceGenerator(name = "seqPassager", sequenceName = "pass_seq_id", initialValue = 50, allocationSize = 1)
 public class Passager {
 	
@@ -30,34 +30,40 @@ public class Passager {
 	private String nom;
 	@Column(name="prenom_passager", length = 100, nullable = false)
 	private String prenom;
+	public List<Reservation> getReservations() {
+		return reservations;
+	}
+
+	public void setReservations(List<Reservation> reservations) {
+		this.reservations = reservations;
+	}
+
 	@Version
 	private int version;
 	@Embedded
 	private Adresse adresse;
 
-//	@ManyToOne
-//	@JoinColumn(name = "id_reservation")
-//	private Reservation reservation;
+
 	
 	@OneToMany(mappedBy = "passager" )
 	private List<Reservation> reservations = new ArrayList<>();
 	
-//	@ManyToOne
-//	@JoinColumn(name = "id_reservation")
-//	private Reservation reservation;
-//	
 	
 
 	
 
-	public Passager(Long id, String nom, String prenom, int version, Adresse adresse, List<Reservation> reservations) {
+	
+
+
+
+	public Passager(Long id, String nom, String prenom, int version, Adresse adresse) {
 	super();
 	this.id = id;
 	this.nom = nom;
 	this.prenom = prenom;
 	this.version = version;
 	this.adresse = adresse;
-	this.reservations = reservations;
+
 }
 
 	public int getVersion() {
@@ -68,13 +74,7 @@ public class Passager {
 		this.version = version;
 	}
 
-	public List<Reservation> getReservations() {
-		return reservations;
-	}
 
-	public void setReservations(List<Reservation> reservations) {
-		this.reservations = reservations;
-	}
 
 
 

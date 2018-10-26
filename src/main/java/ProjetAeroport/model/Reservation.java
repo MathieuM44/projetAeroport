@@ -10,10 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-<<<<<<< HEAD
-=======
 
->>>>>>> master
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -48,17 +45,19 @@ public class Reservation {
 	private Passager passager;
 
 	@ManyToOne
-<<<<<<< HEAD
 	@JoinColumn(name = "reservation_vol")
 	private Vol vol;
-	
-=======
+
+	@ManyToOne
 	@JoinColumn(name = "client_id")
 	private Client client;
->>>>>>> master
 
 	public Long getId() {
 		return Id;
+	}
+
+	public void setVol(Vol vol) {
+		this.vol = vol;
 	}
 
 	public Reservation(Date date, Integer numero) {
