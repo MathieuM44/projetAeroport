@@ -14,6 +14,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -40,10 +42,14 @@ public class Reservation {
 	@Column(name = "version_reservation")
 	private int version;
 
+	//Association 
+	
 	@OneToMany(mappedBy = "reservation" )
 	private List<Passager> passagers = new ArrayList<>();
 
-	
+	@ManyToOne
+	@JoinColumn(name = "client_id")
+	private Client client;
 	
 
 	public Long getId() {
@@ -106,6 +112,16 @@ public class Reservation {
 
 	public void setPassagers(List<Passager> passagers) {
 		this.passagers = passagers;
+	}
+	
+	
+
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
 	}
 
 	@Override
