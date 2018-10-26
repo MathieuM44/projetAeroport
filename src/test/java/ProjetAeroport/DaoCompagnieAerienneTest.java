@@ -58,6 +58,7 @@ public class DaoCompagnieAerienneTest {
 		CompagnieAerienne compagnieAerienne = new CompagnieAerienne();
 		compagnieAerienne.setNom("CompAe");
 		daoCompagnieAerienne.create(compagnieAerienne);
+		compagnieAerienne = daoCompagnieAerienne.findByKey(compagnieAerienne.getId());
 		daoCompagnieAerienne.delete(compagnieAerienne);
 		assertNull(daoCompagnieAerienne.findByKey(compagnieAerienne.getId()));
 	}

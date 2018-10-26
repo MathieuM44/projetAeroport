@@ -7,7 +7,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
 import ProjetAeroport.model.CompagnieAerienneVol;
-import ProjetAeroport.model.CompagnieAerienneVolKey;
+import ProjetAeroport.model.Escale;
 import ProjetAeroport.model.Vol;
 import ProjetAeroport.util.Context;
 
@@ -76,6 +76,9 @@ class DaoVolJpaImpl implements DaoVol {
 			obj = em.merge(obj);
 			for(CompagnieAerienneVol cav : obj.getCompagnieAerienneVol()) {
 				em.remove(cav);
+			}
+			for(Escale e : obj.getEscale()) {
+				em.remove(e);
 			}
 			em.remove(obj);				// a besoin d'un objet rattaché à la base
 			tx.commit();

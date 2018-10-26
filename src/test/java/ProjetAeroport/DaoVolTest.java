@@ -86,6 +86,7 @@ public class DaoVolTest {
 			e.printStackTrace();
 		}
 		daoVol.create(vol);
+		vol = daoVol.findByKey(vol.getId());
 		daoVol.delete(vol);
 		assertNull(daoVol.findByKey(vol.getId()));
 	}
