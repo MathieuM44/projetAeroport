@@ -15,10 +15,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-<<<<<<< HEAD
-=======
+
 import javax.persistence.ManyToOne;
->>>>>>> 1e8269b0bc8d5bb3f87c59b9c856b3da0e66982c
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -45,45 +43,41 @@ public class Reservation {
 	@Column(name = "version_reservation")
 	private int version;
 
-	//Association 
-	
-	@OneToMany(mappedBy = "reservation" )
-	private List<Passager> passagers = new ArrayList<>();
-//	
-//	@ManytoOne
-//	@JoinColumn(name = "id_passager")
-//	private Passager passager;
+	// Association
+
+	@ManyToOne
+	@JoinColumn(name = "id_passager")
+	private Passager passager;
 
 	@ManyToOne
 	@JoinColumn(name = "client_id")
 	private Client client;
-	
 
 	public Long getId() {
 		return Id;
 	}
-	
+
 	public Reservation(Date date, Integer numero) {
 		super();
-		
+
 		this.date = date;
 		this.numero = numero;
-		
+
 	}
-	
+
 	public Reservation() {
-		
+
 	}
-	
-	
-	public Reservation(Long id, Date date, Integer numero, int version, List<Passager> passagers) {
-	super();
-	Id = id;
-	this.date = date;
-	this.numero = numero;
-	this.version = version;
-	this.passagers = passagers;
-}
+
+	public Reservation(Long id, Date date, Integer numero, int version, Passager passager, Client client) {
+		super();
+		Id = id;
+		this.date = date;
+		this.numero = numero;
+		this.version = version;
+		this.passager = passager;
+		this.client = client;
+	}
 
 	public void setId(Long id) {
 		Id = id;
@@ -113,18 +107,16 @@ public class Reservation {
 		this.version = version;
 	}
 
-	public List<Passager> getPassagers() {
-		return passagers;
-	}
-
-	public void setPassagers(List<Passager> passagers) {
-		this.passagers = passagers;
-	}
-	
-	
-
 	public Client getClient() {
 		return client;
+	}
+
+	public Passager getPassager() {
+		return passager;
+	}
+
+	public void setPassager(Passager passager) {
+		this.passager = passager;
 	}
 
 	public void setClient(Client client) {
@@ -155,7 +147,5 @@ public class Reservation {
 			return false;
 		return true;
 	}
-	
-	
-	
+
 }
