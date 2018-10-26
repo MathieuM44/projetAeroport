@@ -8,6 +8,7 @@ resources
 DaoGeneric.java
 util
 .DS_Store
+pom.xml
 
 =======
 /target/
