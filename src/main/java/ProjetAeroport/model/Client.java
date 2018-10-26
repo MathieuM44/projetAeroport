@@ -13,11 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-<<<<<<< HEAD
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQuery;
-=======
->>>>>>> d786dcffd1ab233ac056407ae5268c192a13e1c3
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
