@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .git
 .settings
 target
@@ -8,3 +9,6 @@ DaoGeneric.java
 util
 .DS_Store
 
+=======
+/target/
+>>>>>>> mathieu
