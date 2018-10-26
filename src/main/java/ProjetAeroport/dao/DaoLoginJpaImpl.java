@@ -9,8 +9,6 @@ import javax.persistence.Query;
 import ProjetAeroport.model.Login;
 import ProjetAeroport.util.Context;
 
-
-
 public class DaoLoginJpaImpl implements DaoLogin {
 
 	@Override
@@ -117,12 +115,8 @@ public class DaoLoginJpaImpl implements DaoLogin {
 		}
 	}
 
-<<<<<<< HEAD
-	
-=======
 	@SuppressWarnings("unchecked")
 	@Override
->>>>>>> 1e8269b0bc8d5bb3f87c59b9c856b3da0e66982c
 	public List<Login> findAll() {
 		List<Login> logins = null;
 		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
@@ -131,15 +125,5 @@ public class DaoLoginJpaImpl implements DaoLogin {
 		em.close();
 		return logins;
 	}
-
-
-
-
-
-
-	
-	
-
-	
 
 }
