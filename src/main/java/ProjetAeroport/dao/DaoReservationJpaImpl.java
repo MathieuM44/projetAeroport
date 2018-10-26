@@ -6,18 +6,19 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
-import ProjetAeroport.model.Aeroport;
-import ProjetAeroport.model.Escale;
-import ProjetAeroport.model.VilleAeroport;
-import ProjetAeroport.util.Context;
+import ProjetAeroport.model.Passager;
+import ProjetAeroport.model.Reservation;
 
+import ProjetAeroport.util.*;
 
-public class DaoAeroportJpaImpl implements DaoAeroport {
+class DaoReservationJpaImpl implements DaoReservation {
+
 	@Override
-	public void create(Aeroport obj) {
+	public void create(Reservation obj) {
 		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
-		EntityTransaction tx = em.getTransaction();
+		EntityTransaction tx = null;
 		try {
+			tx = em.getTransaction();
 			tx.begin();
 			em.persist(obj);
 			tx.commit();
@@ -31,25 +32,27 @@ public class DaoAeroportJpaImpl implements DaoAeroport {
 				em.close();
 			}
 		}
+
 	}
 
 	@Override
-	public Aeroport findByKey(Long key) {
+	public Reservation findByKey(Long key) {
 		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
-		Aeroport f=null;
-		f=em.find(Aeroport.class, key);
+		Reservation recherche = null;
+		recherche = em.find(Reservation.class, key);
 		em.close();
-		return f;
+		return recherche;
 	}
 
 	@Override
-	public Aeroport update(Aeroport obj) {
+	public Reservation update(Reservation obj) {
 		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
 		EntityTransaction tx = null;
+		Reservation a = null;
 		try {
 			tx = em.getTransaction();
 			tx.begin();
-			em.merge(obj);
+			a = em.merge(obj);
 			tx.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -61,24 +64,23 @@ public class DaoAeroportJpaImpl implements DaoAeroport {
 				em.close();
 			}
 		}
-		return obj;
+		return a;
 	}
 
 	@Override
-	public void delete(Aeroport obj) {
+	public void delete(Reservation obj) {
 		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
 		EntityTransaction tx = null;
 		try {
 			tx = em.getTransaction();
 			tx.begin();
-			obj=em.merge(obj);		
-			for(Escale e : obj.getEscale()) {
-				em.remove(e);
+			obj = em.merge(obj);
+			for (Passager p : obj.getPassagers()) {
+
+				p.setReservation(null);
+
 			}
-			for(VilleAeroport va: obj.getVilleAeroports()) {
-				em.remove(va);
-			}
-			em.remove(obj);
+			em.remove(em.merge(obj));
 			tx.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -90,6 +92,7 @@ public class DaoAeroportJpaImpl implements DaoAeroport {
 				em.close();
 			}
 		}
+
 	}
 
 	@Override
@@ -99,7 +102,13 @@ public class DaoAeroportJpaImpl implements DaoAeroport {
 		try {
 			tx = em.getTransaction();
 			tx.begin();
-			em.remove(em.find(Aeroport.class, key));
+			Reservation obj = em.find(Reservation.class, key);
+			for (Passager p : obj.getPassagers()) {
+
+				p.setReservation(null);
+
+			}
+			em.remove(em.find(Reservation.class, key));
 			tx.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -111,17 +120,17 @@ public class DaoAeroportJpaImpl implements DaoAeroport {
 				em.close();
 			}
 		}
+
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public List<Aeroport> findAll() {
+	public List<Reservation> findAll() {
 		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
-		Query query = em.createQuery("from Aeroport f"); 
-		List<Aeroport> Aeroports=null;
-		Aeroports=query.getResultList();
+		Query query = em.createQuery("from Reservation a");
+		List<Reservation> Reservations = null;
+		Reservations = query.getResultList();
 		em.close();
-		return Aeroports;
+		return Reservations;
 	}
-}
 
+}

@@ -117,6 +117,7 @@ public class DaoLoginJpaImpl implements DaoLogin {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Login> findAll() {
 		List<Login> logins = null;

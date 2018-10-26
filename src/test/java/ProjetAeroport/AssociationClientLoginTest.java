@@ -1,4 +1,4 @@
-package ProjetAeroport.test;
+package ProjetAeroport;
 
 import static org.junit.Assert.*;
 
@@ -27,6 +27,7 @@ public class AssociationClientLoginTest {
 		daoClient = DaoClientFactory.getInstance();
 	}
 
+	@AfterClass
 	public static void closeJpa() {
 		Context.destroy();
 	}
@@ -40,37 +41,22 @@ public class AssociationClientLoginTest {
 		login.setLogin("test");
 		daoLogin.create(login);
 		
-		
-		
 		// ---------------- test création association
 		
 		cp = daoClient.findByKey(cp.getId());
 		
 		cp.setLogin(login);
 		
-		daoClient.update(cp); // -> Création des foreign Key réussi.
-		
-		
-		
+		daoClient.update(cp); // -> Création des foreign Key r�ussi.
 		
 		// ---------------- test suppression d'objets associés Login - Client
 		
 		cp = daoClient.findByKey(cp.getId());
-
 		 
 		//login = daoLogin.findByKey(login.getId());
 		//daoLogin.delete(login); --> test suppression login reussi : pas de suppression des clients
 		
 		daoClient.delete(cp); // --> test de suppression des clients reussi : pas de suppression des logins
-		
-
-		
-		
-		
-		
-	
-		
-		
 	}
 
 }

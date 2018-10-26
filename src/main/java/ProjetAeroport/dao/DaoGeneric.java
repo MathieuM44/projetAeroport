@@ -2,12 +2,12 @@ package ProjetAeroport.dao;
 
 import java.util.List;
 
-public interface DaoGeneric<T,K> {
+public interface DaoGeneric<T, K> {
+	
+	void create(T obj);
 
-	void create(T obj);		
-	
-	T findByKey(K key);		
-	
+	T findByKey(K key);
+
 	T update(T obj);
 	
 	void delete(T obj);

@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -40,6 +42,14 @@ public class Vol {
 	@Column(name = "heure_arrivee_vol")
 	@Temporal(TemporalType.TIME)
 	private Date heureArrivee;
+	
+	@ManyToOne
+	@JoinColumn(name = "aeroport_depart_id")
+	private Aeroport aeroportDepart;
+	
+	@ManyToOne
+	@JoinColumn(name = "aeroport_arrivee_id")
+	private Aeroport aeroportArrivee;
 	
 	@OneToMany(mappedBy = "key.vol")		// erreur à ignorer si clé composée
 	private List<CompagnieAerienneVol> compagnieAerienneVol;
@@ -115,6 +125,22 @@ public class Vol {
 
 	public void setEscale(List<Escale> escale) {
 		this.escale = escale;
+	}
+
+	public Aeroport getAeroportDepart() {
+		return aeroportDepart;
+	}
+
+	public void setAeroportDepart(Aeroport aeroportDepart) {
+		this.aeroportDepart = aeroportDepart;
+	}
+
+	public Aeroport getAeroportArrivee() {
+		return aeroportArrivee;
+	}
+
+	public void setAeroportArrivee(Aeroport aeroportArrivee) {
+		this.aeroportArrivee = aeroportArrivee;
 	}
 
 	@Override
