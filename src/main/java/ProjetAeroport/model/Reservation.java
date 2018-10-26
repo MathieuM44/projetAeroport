@@ -1,11 +1,16 @@
 package ProjetAeroport.model;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,8 +20,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
-
-import antlr.collections.List;
 
 @Entity
 @Table(name = "Reservation")
@@ -32,35 +35,79 @@ public class Reservation {
 	private Date date;
 	@Column(name = "numero_reservation", length = 400, nullable = false)
 	private Integer numero;
-	
+
 	@Version
 	@Column(name = "version_reservation")
 	private int version;
+
+	@OneToMany(mappedBy = "reservation")
+	private List<Passager> passagers = new ArrayList<>();
+
 	
-	@OneToMany(mappedBy="Reservation")
-	private Set<Passager> passagers = new HashSet(); 
 	
 
-	public Reservation() {
-		
+	public Long getId() {
+		return Id;
 	}
 	
 	public Reservation(Date date, Integer numero) {
 		super();
+		
 		this.date = date;
 		this.numero = numero;
+		
 	}
 	
-	public Reservation(Integer numero) {
-		super();
-		this.numero = numero;
+	public Reservation() {
+		
 	}
-	public Reservation(Long id, Date date, Integer numero) {
-		super();
+	
+	
+	public Reservation(Long id, Date date, Integer numero, int version, List<Passager> passagers) {
+	super();
+	Id = id;
+	this.date = date;
+	this.numero = numero;
+	this.version = version;
+	this.passagers = passagers;
+}
+
+	public void setId(Long id) {
 		Id = id;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public Integer getNumero() {
+		return numero;
+	}
+
+	public void setNumero(Integer numero) {
 		this.numero = numero;
 	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
+	}
+
+	public List<Passager> getPassagers() {
+		return passagers;
+	}
+
+	public void setPassagers(List<Passager> passagers) {
+		this.passagers = passagers;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -68,6 +115,7 @@ public class Reservation {
 		result = prime * result + ((Id == null) ? 0 : Id.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -84,25 +132,7 @@ public class Reservation {
 			return false;
 		return true;
 	}
-	public Long getId() {
-		return Id;
-	}
-	public void setId(Long id) {
-		Id = id;
-	}
-	public Date getDate() {
-		return date;
-	}
-	public void setDate(Date date) {
-		this.date = date;
-	}
-	public Integer getNumero() {
-		return numero;
-	}
-	public void setNumero(Integer numero) {
-		this.numero = numero;
-	}
 	
 	
-
+	
 }

@@ -32,6 +32,28 @@ public class Passager {
 //	@JoinColumn(name = "id_reservation")
 //	private Reservation reservation;
 	
+	@ManyToOne
+	@JoinColumn(name = "id_reservation")
+	private Reservation reservation;
+	
+	public Passager(Long id, String nom, String prenom, int version, Reservation reservation, Adresse adresse) {
+		super();
+		this.id = id;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.version = version;
+		this.reservation = reservation;
+		this.adresse = adresse;
+	}
+
+	public Reservation getReservation() {
+		return reservation;
+	}
+
+	public void setReservation(Reservation reservation) {
+		this.reservation = reservation;
+	}
+
 	@Embedded
 	//attributeoverride
 	private Adresse adresse;
