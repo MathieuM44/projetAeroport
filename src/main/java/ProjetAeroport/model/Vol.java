@@ -44,6 +44,9 @@ public class Vol {
 	@OneToMany(mappedBy = "key.vol")		// erreur à ignorer si clé composée
 	private List<CompagnieAerienneVol> compagnieAerienneVol;
 	
+	@OneToMany(mappedBy = "key.vol")		// erreur à ignorer si clé composée
+	private List<Escale> escale;
+	
 	@Version
 	private int version;
 	
@@ -104,6 +107,14 @@ public class Vol {
 
 	public void setCompagnieAerienneVol(List<CompagnieAerienneVol> compagnieAerienneVol) {
 		this.compagnieAerienneVol = compagnieAerienneVol;
+	}
+
+	public List<Escale> getEscale() {
+		return escale;
+	}
+
+	public void setEscale(List<Escale> escale) {
+		this.escale = escale;
 	}
 
 	@Override

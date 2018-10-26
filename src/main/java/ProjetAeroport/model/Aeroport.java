@@ -1,11 +1,13 @@
 package ProjetAeroport.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Version;
 
@@ -17,6 +19,9 @@ public class Aeroport {
 	private Long Id;
 	@Column(name="nom_aeroport",length=50) 
 	private String nom;
+	
+	@OneToMany(mappedBy = "key.aeroport")		// erreur à ignorer si clé composée
+	private List<Escale> escale;
 	
 	@Version
 	private int version;
@@ -46,6 +51,14 @@ public class Aeroport {
 
 	public void setVersion(int version) {
 		this.version = version;
+	}
+
+	public List<Escale> getEscale() {
+		return escale;
+	}
+
+	public void setEscale(List<Escale> escale) {
+		this.escale = escale;
 	}
 
 	@Override
