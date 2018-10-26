@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
+import ProjetAeroport.model.Aeroport;
 import ProjetAeroport.model.CompagnieAerienneVol;
 import ProjetAeroport.model.Ville;
 import ProjetAeroport.model.VilleAeroport;
@@ -121,5 +122,17 @@ public class DaoVilleJpaImpl implements DaoVille {
 		em.close();
 		return Villes;
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Aeroport> findAllAeroport() {
+		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
+		Query query = em.createNamedQuery("Ville.findAllAeroport");
+		List<Aeroport> aeroports = query.getResultList();
+		em.close();
+		return aeroports;
+	}
+	
+	
 }
 

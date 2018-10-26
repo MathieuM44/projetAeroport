@@ -7,12 +7,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Version;
 
 @Entity
 @SequenceGenerator (name="seqVille",sequenceName="seq_ville", initialValue = 1 , allocationSize=1)
+@NamedQuery(name = "Ville.findAllAeroport", 
+	query = "select distinct v from Ville v left join fetch v.villeAeroports va left join fetch va.key.aeroport")
+// attention jpql n'aime pas cette ecriture de requete multiple
 public class Ville {
 	
 	@Id

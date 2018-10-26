@@ -67,7 +67,7 @@ public class DaoLoginJpaImpl implements DaoLogin {
 		return a;
 	}
 
-	@Override
+	
 	public void delete(Login obj) {
 		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
 		EntityTransaction tx = null;
@@ -92,7 +92,7 @@ public class DaoLoginJpaImpl implements DaoLogin {
 		}
 	}
 
-	@Override
+	
 	public void deleteByKey(Long Key) {
 		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
 		EntityTransaction tx = null;
@@ -117,8 +117,12 @@ public class DaoLoginJpaImpl implements DaoLogin {
 		}
 	}
 
+<<<<<<< HEAD
+	
+=======
 	@SuppressWarnings("unchecked")
 	@Override
+>>>>>>> 1e8269b0bc8d5bb3f87c59b9c856b3da0e66982c
 	public List<Login> findAll() {
 		List<Login> logins = null;
 		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
