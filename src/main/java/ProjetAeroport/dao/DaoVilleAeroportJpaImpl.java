@@ -6,15 +6,16 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
-import ProjetAeroport.model.Aeroport;
-import ProjetAeroport.model.Escale;
 import ProjetAeroport.model.VilleAeroport;
+import ProjetAeroport.model.VilleAeroportKey;
 import ProjetAeroport.util.Context;
 
 
-public class DaoAeroportJpaImpl implements DaoAeroport {
+
+public class DaoVilleAeroportJpaImpl implements DaoVilleAeroport {
+	
 	@Override
-	public void create(Aeroport obj) {
+	public void create(VilleAeroport obj) {
 		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		try {
@@ -34,16 +35,16 @@ public class DaoAeroportJpaImpl implements DaoAeroport {
 	}
 
 	@Override
-	public Aeroport findByKey(Long key) {
+	public VilleAeroport findByKey(VilleAeroportKey key) {
 		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
-		Aeroport f=null;
-		f=em.find(Aeroport.class, key);
+		VilleAeroport f=null;
+		f=em.find(VilleAeroport.class, key);
 		em.close();
 		return f;
 	}
 
 	@Override
-	public Aeroport update(Aeroport obj) {
+	public VilleAeroport update(VilleAeroport obj) {
 		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
 		EntityTransaction tx = null;
 		try {
@@ -65,19 +66,13 @@ public class DaoAeroportJpaImpl implements DaoAeroport {
 	}
 
 	@Override
-	public void delete(Aeroport obj) {
+	public void delete(VilleAeroport obj) {
 		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
 		EntityTransaction tx = null;
 		try {
 			tx = em.getTransaction();
 			tx.begin();
-			obj=em.merge(obj);		
-			for(Escale e : obj.getEscale()) {
-				em.remove(e);
-			}
-			for(VilleAeroport va: obj.getVilleAeroports()) {
-				em.remove(va);
-			}
+			obj=em.merge(obj);
 			em.remove(obj);
 			tx.commit();
 		} catch (Exception e) {
@@ -93,13 +88,13 @@ public class DaoAeroportJpaImpl implements DaoAeroport {
 	}
 
 	@Override
-	public void deleteByKey(Long key) {
+	public void deleteByKey(VilleAeroportKey key) {
 		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
 		EntityTransaction tx = null;
 		try {
 			tx = em.getTransaction();
 			tx.begin();
-			em.remove(em.find(Aeroport.class, key));
+			em.remove(em.find(VilleAeroport.class, key));
 			tx.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -115,13 +110,13 @@ public class DaoAeroportJpaImpl implements DaoAeroport {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Aeroport> findAll() {
+	public List<VilleAeroport> findAll() {
 		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
-		Query query = em.createQuery("from Aeroport f"); 
-		List<Aeroport> Aeroports=null;
-		Aeroports=query.getResultList();
+		Query query = em.createQuery("from VilleAeroport f"); 
+		List<VilleAeroport> VilleAeroports=null;
+		VilleAeroports=query.getResultList();
 		em.close();
-		return Aeroports;
+		return VilleAeroports;
 	}
 }
 

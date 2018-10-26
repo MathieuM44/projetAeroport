@@ -28,8 +28,13 @@ public class Passager {
 	private String prenom;
 	@Version
 	private int version;
+<<<<<<< HEAD
 	
 	
+=======
+	@Embedded
+	private Adresse adresse;
+>>>>>>> 1e8269b0bc8d5bb3f87c59b9c856b3da0e66982c
 //	@ManyToOne
 //	@JoinColumn(name = "id_reservation")
 //	private Reservation reservation;
@@ -56,9 +61,6 @@ public class Passager {
 		this.reservation = reservation;
 	}
 
-	@Embedded
-	//attributeoverride
-	private Adresse adresse;
 	
 	
 	public Passager(long id, String nom, String prenom) {
@@ -99,6 +101,20 @@ public class Passager {
 
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
+	}
+	
+	
+
+	public Adresse getAdresse() {
+		return adresse;
+	}
+
+	public void setAdresse(Adresse adresse) {
+		this.adresse = adresse;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	@Override

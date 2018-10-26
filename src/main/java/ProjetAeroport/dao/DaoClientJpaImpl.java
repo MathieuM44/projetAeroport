@@ -7,9 +7,8 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
 import ProjetAeroport.model.Client;
+import ProjetAeroport.model.Reservation;
 import ProjetAeroport.util.Context;
-
-
 
 public class DaoClientJpaImpl implements DaoClient {
 
@@ -39,7 +38,7 @@ public class DaoClientJpaImpl implements DaoClient {
 
 		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
 		Client a = null;
-		a= em.find(Client.class, Key);
+		a = em.find(Client.class, Key);
 		em.close();
 		return a;
 	}
@@ -75,8 +74,13 @@ public class DaoClientJpaImpl implements DaoClient {
 			tx = em.getTransaction();
 			tx.begin();
 			obj = em.merge(obj);
-			if(obj.getLogin()!=null) {
+			if (obj.getLogin() != null) {
 				obj.setLogin(null);
+			}
+			if (obj.getReservations() != null) {
+				for (Reservation reservation : obj.getReservations()) {
+					reservation.setClient(null);
+				}
 			}
 			em.remove(em.merge(obj));
 			tx.commit();
@@ -100,9 +104,13 @@ public class DaoClientJpaImpl implements DaoClient {
 			tx = em.getTransaction();
 			tx.begin();
 			Client obj = em.find(Client.class, Key);
-			if(obj.getLogin()!=null) {
+			if (obj.getLogin() != null) {
 				obj.setLogin(null);
-			em.merge(obj);
+			}
+			if (obj.getReservations() != null) {
+				for (Reservation reservation : obj.getReservations()) {
+					reservation.setClient(null);
+				}
 			}
 			em.remove(em.find(Client.class, Key));
 			tx.commit();
@@ -118,6 +126,7 @@ public class DaoClientJpaImpl implements DaoClient {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Client> findAll() {
 		List<Client> Clients = null;
@@ -127,15 +136,5 @@ public class DaoClientJpaImpl implements DaoClient {
 		em.close();
 		return Clients;
 	}
-
-
-
-
-
-
-	
-	
-
-	
 
 }

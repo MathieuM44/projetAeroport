@@ -117,7 +117,12 @@ public class DaoLoginJpaImpl implements DaoLogin {
 		}
 	}
 
+<<<<<<< HEAD
 	
+=======
+	@SuppressWarnings("unchecked")
+	@Override
+>>>>>>> 1e8269b0bc8d5bb3f87c59b9c856b3da0e66982c
 	public List<Login> findAll() {
 		List<Login> logins = null;
 		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
