@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -15,6 +17,12 @@ import javax.persistence.Version;
 @Entity
 @Table(name = "Compagnie_Aerienne")
 @SequenceGenerator(name = "seqCompagnieAerienne", sequenceName = "seq_compagnies_aeriennes", initialValue = 1, allocationSize = 1)
+@NamedQueries({
+	@NamedQuery(name = "CA.findAllCompagnieAerienneVol" , 
+			query = "select distinct ca from CompagnieAerienne ca left join fetch ca.compagnieAerienneVol"),
+	@NamedQuery(name = "CA.findAllVol", 
+			query = "select distinct ca from CompagnieAerienne ca left join fetch ca.compagnieAerienneVol cav left join fetch cav.key.vol")
+})
 public class CompagnieAerienne {
 
 	@Id
