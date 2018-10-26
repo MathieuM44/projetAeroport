@@ -13,11 +13,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-<<<<<<< HEAD
+
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQuery;
-=======
->>>>>>> d786dcffd1ab233ac056407ae5268c192a13e1c3
+
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
@@ -25,14 +24,14 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 
 @Entity
-@Table (name = "client_projet_aeroport")
+@Table(name = "client_projet_aeroport")
 @NamedQuery(name = "Client.clientAvecReservation", query = "select c from Client c left join fetch c.reservations")
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name="statut_juridique", discriminatorType = DiscriminatorType.STRING,length = 2)
-@SequenceGenerator(name="seqClient", sequenceName="seq_client", initialValue = 1, allocationSize=1)
+@DiscriminatorColumn(name = "statut_juridique", discriminatorType = DiscriminatorType.STRING, length = 2)
+@SequenceGenerator(name = "seqClient", sequenceName = "seq_client", initialValue = 1, allocationSize = 1)
 public abstract class Client {
-	
-	//Attributs
+
+	// Attributs
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqClient")
 	@Column(name = "id_client", length = 10)
@@ -48,23 +47,22 @@ public abstract class Client {
 	@Embedded
 	private Adresse adresse;
 
-	
-	//joindre adresse
-	
-	//association
-	
+	// joindre adresse
+
+	// association
+
 	@OneToOne
 	private Login login;
-	
+
 	@OneToMany(mappedBy = "client")
 	private List<Reservation> reservations = new ArrayList<>();
-	
-	//version
+
+	// version
 	@Version
 	int version;
-	
+
 	public Client() {
-		
+
 	}
 
 	public Client(String nom, Integer numeroTel, Integer numeroFax, String email) {
@@ -118,7 +116,6 @@ public abstract class Client {
 		this.email = email;
 	}
 
-	
 	public Login getLogin() {
 		return login;
 	}
@@ -126,7 +123,6 @@ public abstract class Client {
 	public void setLogin(Login login) {
 		this.login = login;
 	}
-	
 
 	public Adresse getAdresse() {
 		return adresse;
@@ -135,7 +131,6 @@ public abstract class Client {
 	public void setAdresse(Adresse adresse) {
 		this.adresse = adresse;
 	}
-	
 
 	public List<Reservation> getReservations() {
 		return reservations;
@@ -170,7 +165,4 @@ public abstract class Client {
 		return true;
 	}
 
-	
-	
-	
 }

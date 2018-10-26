@@ -15,39 +15,34 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Version;
 
 @Entity
-@SequenceGenerator(name = "seqAeroport", sequenceName="seq_aeroport", initialValue=1, allocationSize=1)
+@SequenceGenerator(name = "seqAeroport", sequenceName = "seq_aeroport", initialValue = 1, allocationSize = 1)
 @NamedQueries({
-	@NamedQuery(name = "Aeroport.findAllEscale", 
-			query = "select distinct a from Aeroport a left join fetch a.escale"),
-	@NamedQuery(name = "Aeroport.findAllVolDepart", 
-			query = "select distinct a from Aeroport a left join fetch a.volsDepart"),
-	@NamedQuery(name = "Aeroport.findAllVolArrivee", 
-			query = "select distinct a from Aeroport a left join fetch a.volsArrivee"),
-	@NamedQuery(name = "Aeroport.findAllVille", 
-			query = "select distinct a from Aeroport a left join fetch a.villeAeroports va left join fetch va.key.ville")
-})
+		@NamedQuery(name = "Aeroport.findAllEscale", query = "select distinct a from Aeroport a left join fetch a.escale"),
+		@NamedQuery(name = "Aeroport.findAllVolDepart", query = "select distinct a from Aeroport a left join fetch a.volsDepart"),
+		@NamedQuery(name = "Aeroport.findAllVolArrivee", query = "select distinct a from Aeroport a left join fetch a.volsArrivee"),
+		@NamedQuery(name = "Aeroport.findAllVille", query = "select distinct a from Aeroport a left join fetch a.villeAeroports va left join fetch va.key.ville") })
 public class Aeroport {
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seqAeroport")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqAeroport")
 	private Long Id;
-	@Column(name="nom_aeroport",length=50) 
+	@Column(name = "nom_aeroport", length = 50)
 	private String nom;
-	
+
 	@OneToMany(mappedBy = "aeroportDepart")
 	private List<Vol> volsDepart;
-	
+
 	@OneToMany(mappedBy = "aeroportArrivee")
 	private Set<Vol> volsArrivee;
-	
-	@OneToMany(mappedBy = "key.aeroport")		// erreur à ignorer si clé composée
+
+	@OneToMany(mappedBy = "key.aeroport") // erreur à ignorer si clé composée
 	private Set<Escale> escale;
-	
-	@OneToMany(mappedBy = "key.aeroport")		// erreur à ignorer si clé composée
+
+	@OneToMany(mappedBy = "key.aeroport") // erreur à ignorer si clé composée
 	private Set<VilleAeroport> villeAeroports;
-	
+
 	@Version
 	private int version;
-	
+
 	public Aeroport() {
 	}
 
@@ -130,5 +125,5 @@ public class Aeroport {
 		} else if (!Id.equals(other.Id))
 			return false;
 		return true;
-	}	
+	}
 }

@@ -15,11 +15,10 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 
 @Entity
-<<<<<<< HEAD
+
 @Table (name="passager_projet_aeroport")
-=======
-@Table(name = "passager")
->>>>>>> master
+
+
 @SequenceGenerator(name = "seqPassager", sequenceName = "pass_seq_id", initialValue = 50, allocationSize = 1)
 public class Passager {
 
@@ -44,7 +43,7 @@ public class Passager {
 	@Embedded
 	private Adresse adresse;
 
-<<<<<<< HEAD
+
 
 	
 	@OneToMany(mappedBy = "passager" )
@@ -67,9 +66,7 @@ public class Passager {
 	this.adresse = adresse;
 
 }
-=======
-	@OneToMany(mappedBy = "passager")
-	private List<Reservation> reservations = new ArrayList<>();
+
 
 	public Passager(Long id, String nom, String prenom, int version, Adresse adresse, List<Reservation> reservations) {
 		super();
@@ -80,7 +77,7 @@ public class Passager {
 		this.adresse = adresse;
 		this.reservations = reservations;
 	}
->>>>>>> master
+
 
 	public int getVersion() {
 		return version;
