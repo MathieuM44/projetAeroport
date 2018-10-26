@@ -13,12 +13,8 @@ import org.junit.Test;
 
 import ProjetAeroport.dao.DaoReservation;
 import ProjetAeroport.dao.DaoReservationFactory;
-import ProjetAeroport.model.Passager;
 import ProjetAeroport.model.Reservation;
 import ProjetAeroport.util.Context;
-
-
-
 
 public class DaoReservationTest {
 
@@ -43,7 +39,6 @@ public class DaoReservationTest {
 			daoReservation.create(vallan);
 			assertNotNull(vallan.getId());
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -58,11 +53,10 @@ public class DaoReservationTest {
 			daoReservation.create(vallan);
 			assertNotNull(daoReservation.findByKey(vallan.getId()));
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} //okok
+		} 
 	}
-//
+
 	@Test
 	public void update() {
 		SimpleDateFormat sdf = new SimpleDateFormat("DD/MM/YYYY");
@@ -82,7 +76,7 @@ public class DaoReservationTest {
 	@Test
 	public void findAll() {
 		assertNotNull(daoReservation.findAll());
-	}// ok
+	}
 
 	@Test
 	public void delete() {
@@ -94,12 +88,10 @@ public class DaoReservationTest {
 			daoReservation.delete(vallan);
 			assertNull(daoReservation.findByKey(vallan.getId()));
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-////	
-//
+
 	@Test
 	public void deleteByKey() {
 		SimpleDateFormat sdf = new SimpleDateFormat("DD/MM/YYYY");
@@ -110,7 +102,6 @@ public class DaoReservationTest {
 			daoReservation.deleteByKey(vallan.getId());
 			assertNull(daoReservation.findByKey(vallan.getId()));
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

@@ -6,7 +6,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
-import ProjetAeroport.model.Aeroport;
 import ProjetAeroport.model.CompagnieAerienne;
 import ProjetAeroport.model.CompagnieAerienneVol;
 import ProjetAeroport.model.Vol;

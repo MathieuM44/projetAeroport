@@ -4,6 +4,8 @@ import static org.junit.Assert.assertNotNull;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -62,11 +64,11 @@ public class TestjointurePassagerReservation {
 			daoPassager.create(vallan);
 			daoReservation.create(reserve);
 			vallan = daoPassager.findByKey(vallan.getId());
-			vallan.setReservation(reserve);
+			List<Reservation> reservations = new ArrayList<>();
+			vallan.setReservations(reservations);
 			daoPassager.update(vallan);
 			reserve = daoReservation.findByKey(reserve.getId());
 			daoReservation.delete(reserve);
-
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -74,7 +76,6 @@ public class TestjointurePassagerReservation {
 
 	@Test
 	public void deletePassager() {
-
 		daoPassager = DaoPassagerFactory.getInstance();
 		daoReservation = DaoReservationFactory.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat("DD/MM/YYYY");
@@ -84,16 +85,15 @@ public class TestjointurePassagerReservation {
 			daoPassager.create(vallan);
 			daoReservation.create(reserve);
 			vallan = daoPassager.findByKey(vallan.getId());
-			vallan.setReservation(reserve);
+			List<Reservation> reservations = new ArrayList<>();
+			vallan.setReservations(reservations);
 			daoPassager.update(vallan);
 			vallan = daoPassager.findByKey(vallan.getId());
 			reserve = daoReservation.findByKey(reserve.getId());
 			daoPassager.delete(vallan);
-
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 }

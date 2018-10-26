@@ -9,56 +9,41 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
 @Entity
-@Table (name="passager")
+@Table(name = "passager")
 @SequenceGenerator(name = "seqPassager", sequenceName = "pass_seq_id", initialValue = 50, allocationSize = 1)
 public class Passager {
-	
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqPassager")
-	@Column(name="id_passager")
+	@Column(name = "id_passager")
 	private Long id;
-	@Column(name="nom_passager", length = 100, nullable = false)
+	@Column(name = "nom_passager", length = 100, nullable = false)
 	private String nom;
-	@Column(name="prenom_passager", length = 100, nullable = false)
+	@Column(name = "prenom_passager", length = 100, nullable = false)
 	private String prenom;
 	@Version
 	private int version;
 	@Embedded
 	private Adresse adresse;
 
-//	@ManyToOne
-//	@JoinColumn(name = "id_reservation")
-//	private Reservation reservation;
-	
-	@OneToMany(mappedBy = "passager" )
+	@OneToMany(mappedBy = "passager")
 	private List<Reservation> reservations = new ArrayList<>();
-	
-//	@ManyToOne
-//	@JoinColumn(name = "id_reservation")
-//	private Reservation reservation;
-//	
-	
-
-	
 
 	public Passager(Long id, String nom, String prenom, int version, Adresse adresse, List<Reservation> reservations) {
-	super();
-	this.id = id;
-	this.nom = nom;
-	this.prenom = prenom;
-	this.version = version;
-	this.adresse = adresse;
-	this.reservations = reservations;
-}
+		super();
+		this.id = id;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.version = version;
+		this.adresse = adresse;
+		this.reservations = reservations;
+	}
 
 	public int getVersion() {
 		return version;
@@ -76,24 +61,20 @@ public class Passager {
 		this.reservations = reservations;
 	}
 
-
-
-	
-	
 	public Passager(long id, String nom, String prenom) {
 		super();
 		this.id = id;
 		this.nom = nom;
 		this.prenom = prenom;
 	}
-	
+
 	public Passager(String nom, String prenom) {
 		this.nom = nom;
 		this.prenom = prenom;
 	}
-	
+
 	public Passager() {
-		
+
 	}
 
 	public long getId() {
@@ -119,8 +100,6 @@ public class Passager {
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
 	}
-	
-	
 
 	public Adresse getAdresse() {
 		return adresse;
@@ -155,12 +134,5 @@ public class Passager {
 			return false;
 		return true;
 	}
-	
-	
-	
-	
-	
-	
-	
 
 }

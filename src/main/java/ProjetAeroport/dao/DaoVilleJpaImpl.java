@@ -7,11 +7,9 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
 import ProjetAeroport.model.Aeroport;
-import ProjetAeroport.model.CompagnieAerienneVol;
 import ProjetAeroport.model.Ville;
 import ProjetAeroport.model.VilleAeroport;
 import ProjetAeroport.util.Context;
-
 
 
 public class DaoVilleJpaImpl implements DaoVille {
