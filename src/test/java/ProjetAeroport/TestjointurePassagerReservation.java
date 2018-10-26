@@ -1,4 +1,4 @@
-package test;
+package ProjetAeroport;
 
 import static org.junit.Assert.assertNotNull;
 

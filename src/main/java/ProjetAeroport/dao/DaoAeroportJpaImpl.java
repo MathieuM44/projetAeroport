@@ -7,7 +7,6 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
 import ProjetAeroport.model.Aeroport;
-import ProjetAeroport.model.CompagnieAerienneVol;
 import ProjetAeroport.model.Escale;
 import ProjetAeroport.model.VilleAeroport;
 import ProjetAeroport.util.Context;
