@@ -28,6 +28,8 @@ public class Passager {
 	private String prenom;
 	@Version
 	private int version;
+	
+	
 //	@ManyToOne
 //	@JoinColumn(name = "id_reservation")
 //	private Reservation reservation;

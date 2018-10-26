@@ -67,7 +67,7 @@ public class DaoLoginJpaImpl implements DaoLogin {
 		return a;
 	}
 
-	@Override
+	
 	public void delete(Login obj) {
 		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
 		EntityTransaction tx = null;
@@ -92,7 +92,7 @@ public class DaoLoginJpaImpl implements DaoLogin {
 		}
 	}
 
-	@Override
+	
 	public void deleteByKey(Long Key) {
 		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
 		EntityTransaction tx = null;
@@ -117,7 +117,7 @@ public class DaoLoginJpaImpl implements DaoLogin {
 		}
 	}
 
-	@Override
+	
 	public List<Login> findAll() {
 		List<Login> logins = null;
 		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();

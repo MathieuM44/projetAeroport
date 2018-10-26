@@ -14,6 +14,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -42,6 +43,10 @@ public class Reservation {
 
 	@OneToMany(mappedBy = "reservation" )
 	private List<Passager> passagers = new ArrayList<>();
+//	
+//	@ManytoOne
+//	@JoinColumn(name = "id_passager")
+//	private Passager passager;
 
 	
 	

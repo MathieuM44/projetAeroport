@@ -66,7 +66,7 @@ class DaoPassagerJpaImpl implements DaoPassager {
 		return a;
 	}
 
-	@Override
+	
 	public void delete(Passager obj) {
 		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
 		EntityTransaction tx = null;
@@ -91,7 +91,7 @@ class DaoPassagerJpaImpl implements DaoPassager {
 
 	}
 
-	@Override
+
 	public void deleteByKey(Long key) {
 		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
 		EntityTransaction tx = null;
@@ -116,7 +116,7 @@ class DaoPassagerJpaImpl implements DaoPassager {
 
 	}
 
-	@Override
+	
 	public List<Passager> findAll() {
 		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
 		Query query = em.createQuery("from Passager p");
