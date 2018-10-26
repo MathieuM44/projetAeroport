@@ -1,5 +1,8 @@
 package ProjetAeroport.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -8,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Version;
@@ -28,35 +32,52 @@ public class Passager {
 	private String prenom;
 	@Version
 	private int version;
+	@Embedded
+	private Adresse adresse;
+
 //	@ManyToOne
 //	@JoinColumn(name = "id_reservation")
 //	private Reservation reservation;
 	
-	@ManyToOne
-	@JoinColumn(name = "id_reservation")
-	private Reservation reservation;
+	@OneToMany(mappedBy = "passager" )
+	private List<Reservation> reservations = new ArrayList<>();
 	
-	public Passager(Long id, String nom, String prenom, int version, Reservation reservation, Adresse adresse) {
-		super();
-		this.id = id;
-		this.nom = nom;
-		this.prenom = prenom;
+//	@ManyToOne
+//	@JoinColumn(name = "id_reservation")
+//	private Reservation reservation;
+//	
+	
+
+	
+
+	public Passager(Long id, String nom, String prenom, int version, Adresse adresse, List<Reservation> reservations) {
+	super();
+	this.id = id;
+	this.nom = nom;
+	this.prenom = prenom;
+	this.version = version;
+	this.adresse = adresse;
+	this.reservations = reservations;
+}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
 		this.version = version;
-		this.reservation = reservation;
-		this.adresse = adresse;
 	}
 
-	public Reservation getReservation() {
-		return reservation;
+	public List<Reservation> getReservations() {
+		return reservations;
 	}
 
-	public void setReservation(Reservation reservation) {
-		this.reservation = reservation;
+	public void setReservations(List<Reservation> reservations) {
+		this.reservations = reservations;
 	}
 
-	@Embedded
-	//attributeoverride
-	private Adresse adresse;
+
+
 	
 	
 	public Passager(long id, String nom, String prenom) {
@@ -97,6 +118,20 @@ public class Passager {
 
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
+	}
+	
+	
+
+	public Adresse getAdresse() {
+		return adresse;
+	}
+
+	public void setAdresse(Adresse adresse) {
+		this.adresse = adresse;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	@Override

@@ -14,6 +14,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -40,37 +43,41 @@ public class Reservation {
 	@Column(name = "version_reservation")
 	private int version;
 
-	@OneToMany(mappedBy = "reservation" )
-	private List<Passager> passagers = new ArrayList<>();
+	// Association
 
-	
-	
+	@ManyToOne
+	@JoinColumn(name = "id_passager")
+	private Passager passager;
+
+	@ManyToOne
+	@JoinColumn(name = "client_id")
+	private Client client;
 
 	public Long getId() {
 		return Id;
 	}
-	
+
 	public Reservation(Date date, Integer numero) {
 		super();
-		
+
 		this.date = date;
 		this.numero = numero;
-		
+
 	}
-	
+
 	public Reservation() {
-		
+
 	}
-	
-	
-	public Reservation(Long id, Date date, Integer numero, int version, List<Passager> passagers) {
-	super();
-	Id = id;
-	this.date = date;
-	this.numero = numero;
-	this.version = version;
-	this.passagers = passagers;
-}
+
+	public Reservation(Long id, Date date, Integer numero, int version, Passager passager, Client client) {
+		super();
+		Id = id;
+		this.date = date;
+		this.numero = numero;
+		this.version = version;
+		this.passager = passager;
+		this.client = client;
+	}
 
 	public void setId(Long id) {
 		Id = id;
@@ -100,12 +107,20 @@ public class Reservation {
 		this.version = version;
 	}
 
-	public List<Passager> getPassagers() {
-		return passagers;
+	public Client getClient() {
+		return client;
 	}
 
-	public void setPassagers(List<Passager> passagers) {
-		this.passagers = passagers;
+	public Passager getPassager() {
+		return passager;
+	}
+
+	public void setPassager(Passager passager) {
+		this.passager = passager;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
 	}
 
 	@Override
@@ -132,7 +147,5 @@ public class Reservation {
 			return false;
 		return true;
 	}
-	
-	
-	
+
 }
