@@ -73,6 +73,9 @@ class DaoPassagerJpaImpl implements DaoPassager {
 		try {
 			tx = em.getTransaction();
 			tx.begin();
+			obj = em.merge(obj);
+			obj.setReservation(null);
+				
 			em.remove(em.merge(obj));
 			tx.commit();
 		} catch (Exception e) {
@@ -95,6 +98,9 @@ class DaoPassagerJpaImpl implements DaoPassager {
 		try {
 			tx = em.getTransaction();
 			tx.begin();
+			
+			Passager obj = em.find(Passager.class, key);
+			obj.setReservation(null);
 			em.remove(em.find(Passager.class, key));
 			tx.commit();
 		} catch (Exception e) {

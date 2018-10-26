@@ -40,7 +40,7 @@ public class Reservation {
 	@Column(name = "version_reservation")
 	private int version;
 
-	@OneToMany(mappedBy = "reservation")
+	@OneToMany(mappedBy = "reservation" )
 	private List<Passager> passagers = new ArrayList<>();
 
 	
